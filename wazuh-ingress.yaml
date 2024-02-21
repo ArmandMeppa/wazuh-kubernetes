@@ -2,12 +2,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: wazuh-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   rules:
-  - host: dashboard.wazuh.local
+  - host: dashboard-wazuh.ssegning.com
     http:
       paths:
       - pathType: Prefix
@@ -17,13 +15,13 @@ spec:
             name: dashboard
             port:
               number: 443
-#  - host: indexer.<your-domain>
-#    http:
-#      paths:
-#      - pathType: Prefix
-#        path: "/"
-#        backend:
-#          service:
-#            name: indexer
-#            port:
-#              number: 9200
+  - host: manager-wazuh.ssegning.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: wazuh-workers
+            port:
+              number: 1514
