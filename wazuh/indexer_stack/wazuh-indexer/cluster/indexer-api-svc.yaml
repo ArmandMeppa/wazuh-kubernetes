@@ -15,10 +15,10 @@ metadata:
   labels:
     app: wazuh-indexer
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: wazuh-indexer
   ports:
-    - name: indexer-rest
-      port: 9200
-      targetPort: 9200
+  - name: indexer-rest
+    port: 9200
+    targetPort: 9200
