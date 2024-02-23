@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wazuh-ingress
+  annotations:
+    nginx.org/listen-ports-ssl: "1514"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: wazuh.ssegning.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: wazuh-workers
+            port:
+              number: 1514
